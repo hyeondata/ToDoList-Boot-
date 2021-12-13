@@ -14,10 +14,8 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     
-    @Select("select _Desc, _Date, _id, status from description WHERE MemberID = #{member.Id}")
+    @Select("select _Desc, _Date, _id, status from description WHERE MemberID = #{member.Num}")
     List<Board> boards(@Param("member") Member member);
-
-
 
 
     @Select("select status from description where _id = #{id}")

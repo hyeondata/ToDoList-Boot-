@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class BoardService {
     
     @Autowired
-    private BoardMapper boardMapper;
+    BoardMapper boardMapper;
 
     public void Submit(String id){
         int status = boardMapper.SelectId(id);
@@ -21,7 +21,11 @@ public class BoardService {
         int status = boardMapper.SelectId(id);
         if (status > 0) {
 			status--;
-		}
-        boardMapper.Button(status, id);
+            boardMapper.Button(status, id);
+        }
+        if (status ==0){
+            boardMapper.CancelBoard(id);
+        }
+
     }
 }

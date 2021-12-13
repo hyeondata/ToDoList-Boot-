@@ -1,6 +1,7 @@
 <html>
 
 <head>
+	
 	<meta charset="utf-8">
 	<script src=" ./resources/jquery.js" ></script>
 	<link href="./resources/board.css" rel="stylesheet">
@@ -9,7 +10,7 @@
 
 <body>
 	<div class="_table">
-		<h2 class="_user"> ${member}의 ToDoList</h2>
+		<h1 class="LoginName"></h1> 
 
 		<div class="board">
 
@@ -42,7 +43,7 @@
 		$.ajax({
 			type: 'post',
 			async: false,
-			url: "/submit",
+			url: "./submit",
 			dataType: 'text',
 			data: { _id: click_id },
 			success: function (data) {
@@ -61,7 +62,7 @@
 		$.ajax({
 			type: 'post',
 			async: false,
-			url: "/cancle",
+			url: "./cancle",
 			dataType: 'text',
 			data: { _id: click_id },
 			success: function (data) {
@@ -77,16 +78,17 @@
 	}
 
 
-	var obj = { "name": "${member}" };
-
+	var obj = {};
+	console.log( window.location.host+"/test");
 	function _Main() {
 		$.ajax({
-			url: "/test",
-			type: "post",
+			url: "../test",
+			method: "POST",
 			data: JSON.stringify(obj),
 			dataType: "json",
-			contentType: "application/json",
+			contentType: 'application/json; charset=UTF-8',
 			success: function (data) {
+				$('.name').val = data['LoginName'];
 				$('.new_box').remove();
 				let temp_new = `<div class=new_box>
 									<div class="left">
@@ -126,6 +128,21 @@
 
 					}
 				}
+			},
+			error: function (errorThrown) {
+				alert(errorThrown.statusText);
+			}
+		});
+
+		$.ajax({
+			url: "../name",
+			method: "POST",
+			data: JSON.stringify(obj),
+			dataType: "json",
+			contentType: 'application/json; charset=UTF-8',
+			success: function (data) {
+				$('.LoginName').text(data['LoginName']+"의 ToDoList");
+				alert(data['LoginName'])
 			},
 			error: function (errorThrown) {
 				alert(errorThrown.statusText);

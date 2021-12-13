@@ -35,7 +35,6 @@ public class Member {
 	
 	public void setId(String id) {
 		this.Id = id;
-		System.out.println(Id);
 	}
 	
 	public void setPw(String pw) {
